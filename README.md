@@ -1,11 +1,11 @@
 <h1 align="center"> :green_book:  Manual do Node.js  :ledger: </h1>
 
-<h3 align="center> :warning: Em tradução :warning:
+<h3 align="center"> :warning: Em tradução :warning: </h3>
 
 Vale a pena dizer que tive conhecimento da existência do livro durante um curso na plataforma da [freeCodeCamp](https://www.freecodecamp.org/learn/). Os cursos são em inglês, mas são realmente muito completos e no final você ainda ganha um certificação.
 
 
-<h1 align="center"><img src="https://cdn-media-1.freecodecamp.org/images/1*m5aPLXkrWJs7xKsfYViJEg.png" /></h1>
+<h1 align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png" /></h1>
 
 
 A corrente tradução é autorizada pelo autor Flavio Copes e iniciada por Christy Hauschild Schott. A tradução é feita em caráter voluntário e tem como único objetivo disponibilizar à comunidade o conteúdo do livro em português.
