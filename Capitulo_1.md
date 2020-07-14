@@ -154,3 +154,208 @@ alterações incompatíveis sem interromper a comunidade existente.
 
 - `Socket.io`, um mecanismo de comunicação em tempo real para criar aplicativos de rede.
 
+## Uma breve história do Node
+
+### Uma retrospectiva da história do Node.js de 2009 até hoje
+
+Acredite ou não, o Node.js tem apenas 11 anos.
+Em comparação, o JavaScript tem 23 anos e a Web como a conhecemos (após a introdução do
+Mosaic) tem 25 anos.
+9 anos é uma quantidade de tempo muito pequena para uma tecnologia, mas o Node.js parece ter existido desde sempre.
+Tive o prazer de trabalhar com o Node desde os primeiros dias, quando ele tinha apenas 2 anos e, 
+apesar da pouca informação disponível, você já podia sentir que era uma coisa enorme.
+
+Neste post, quero desenhar o panorama geral do Node em sua história, para colocar as coisas em perspectiva.
+
+- Um pouco de história
+- 2009
+- 2010
+- 2011 
+- 2012
+- 2013
+- 2014
+- 2015
+- 2016
+- 2017
+- 2018
+
+### Um pouco de história
+
+JavaScript é uma linguagem de programação criada na Netscape como uma ferramenta de script para
+manipular páginas da Web dentro de seu navegador, o Netscape Navigator.
+
+Parte do modelo de negócios da Netscape era vender servidores da Web, que incluíam um
+ambiente chamado Netscape LiveWire, onde se pode criar páginas dinâmicas usando
+JavaScript no lado do servidor. Portanto, a ideia do JavaScript no lado do servidor não foi introduzida pelo Node.js, mas é antiga
+assim como o JavaScript - apesar de não ter sido bem-sucedida na época.
+
+Um fator chave que levou ao sucesso do Node.js foi o tempo. JavaScript desde alguns anos foi
+começando a ser considerado uma linguagem séria, graças aos aplicativos "Web 2.0" que
+mostraram ao mundo como seria uma experiência moderna na web (pense no Google Maps ou
+Gmail).
+
+A barra de desempenho dos mecanismos JavaScript aumentou consideravelmente graças a competição dos browser, que continua forte. As equipes de desenvolvimento por trás de cada navegador principal
+trabalham duro todos os dias para nos dar um melhor desempenho, o que é uma grande vitória para o JavaScript como uma
+plataforma. O V8, mecanismo que o Node.js usa sob o capô, é um deles e, em particular, é
+o mecanismo JS do Chrome.
+
+Mas é claro que o Node.js não é popular apenas por pura sorte ou timing. Ele introduziu um pensamento inovador sobre como programar em JavaScript no lado do servidor.
+
+### 2009 
+
+Nasce o Node.js. A primeira forma de `npm` é criada.
+
+### 2010
+
+`Express` nasce. `Socket.io` nasce.
+
+### 2011
+
+npm alcança o 1.0. Grandes companhias começam a adotar o Node: LinkedIn, Uber. Hapi nasce.
+
+### 2012
+
+A adoção continua muito rapidamente.
+
+### 2013
+
+Primeira grande plataforma de blogs usando o Node: Ghost Koa nasce.
+
+### 2014
+
+Grande drama: `IO.js é` o principal fork do Node.js, com o objetivo de introduzir o suporte ao ES6 e avançar mais rapidamente
+
+### 2015
+
+Nasce a Node.js Foundation. O `IO.js` é mesclado novamente no Node.js.
+
+### 2016
+
+O `Yarn` é criado. Node 6.
+
+### 2017
+
+npm se concentra mais na segurança. Node 8. HTTP/2 V8 apresenta o Node em seu conjunto de testes,
+tornando o Node oficialmente um alvo para o mecanismo JS, além de 3 bilhões de downloads de npms no Chrome a cada
+semana
+
+### 2018 
+
+Node 10 ESModules
+
+## Como instalar o Node
+
+### Como você pode instalar o Node.js no seu sistema: um gerenciador de pacotes, o instalador oficial do site ou nvm
+
+O Node.js pode ser instalado de diferentes maneiras. Este post destaca as mais comuns e
+convenientes.
+
+Pacotes oficiais para todas as principais plataformas estão disponíveis em https://nodejs.org/en/download/.
+
+Uma maneira muito conveniente de instalar o Node.js é através de um gerenciador de pacotes. Nesse caso, cada sistema operacional tem o seu próprio.
+No macOS, é o Homebrew, e - uma vez instalado - permite instalar o Node.js
+com muita facilidade, executando este comando na CLI:
+```
+brew install node
+```
+
+Outros gerenciadores de pacotes para Linux e Windows estão listados em https://nodejs.org/en/download/package-manager/.
+
+O `nvm` é uma maneira popular de executar o Node. Permite alternar facilmente a versão do Node e instalar
+novas versões para tentar resolver o problema se algo quebrar, por exemplo.
+Também é muito útil testar seu código com versões antigas do Node.
+
+Consulte https://github.com/creationix/nvm para obter mais informações sobre esta opção.
+
+Minha sugestão é usar o instalador oficial se você está apenas começando e não usa
+linha de comando caso contrário, o Homebrew é a minha solução favorita.
+De qualquer forma, quando o Node estiver instalado, você terá acesso ao programa executável `node` na linha de comando.
+
+## Quanto JavaScript você deve saber para usar o Node?
+
+### Se você está apenas começando com JavaScript, o quão fundo você precisa conhecer a linguagem?
+
+Como iniciante, é difícil chegar a um ponto em que você tem confiança suficiente nas suas habilidades de programação.
+Ao aprender a codar, você também pode ficar confuso sobre onde termina o JavaScript e onde
+o Node.js começa, ou vice-versa.
+
+Eu recomendo que você tenha uma boa noção dos principais conceitos de JavaScript antes de mergulhar
+no Node.js:
+
+- Estrutura léxica
+- Expressões
+- Tipos
+- Variáveis
+- Funções
+- this
+- Arrow Functions
+- Loops
+- Loops e escopo
+- Arrays
+- Template Literals
+- Semicolons
+- Strict Mode
+- ECMAScript 6, 2016, 2017
+
+
+Com esses conceitos em mente, você está no caminho certo para se tornar um ótimo desenvolvedor JavaScript, tanto no navegador quanto no Node.js.
+
+Os seguintes conceitos também são fundamentais para entender a programação assíncrona, que é uma parte fundamental do Node.js:
+
+- Programação assíncrona e callbacks
+- Temporizadores
+- Promises
+- Async e Await
+- Closures
+- Event Loop
+
+Felizmente, escrevi um e-book gratuito que explica todos esses tópicos, o Manual do JavaScript. É o recurso mais compacto que você encontrará para aprender tudo isso.
+
+Você pode encontrar o ebook na parte inferior desta página: https://flaviocopes.com/javascript/.
+
+Eu também fiz a tradução desse livro, o resultado pode ser conferido aqui https://github.com/ChristySchott/Manual-Iniciante-JavaScript.
+
+## Diferenças entre o Node e o navegador
+
+### Como a escrita de uma aplicação JavaScript no Node.js difere da Programação Web dentro do navegador
+
+O navegador e o Node usam JavaScript como sua linguagem de programação, porém, criar aplicativos executados no navegador é algo completamente diferente de criar uma aplicação em Node.js.
+
+Apesar de ambos os casos utilizarem JavaScript, existem algumas diferenças importantes que tornam essa experiência radicalmente diferente. 
+
+Como um desenvolvedor front-end que cria aplicativos para o Node, há uma enorme vantagem - a linguagem ainda é
+o mesmo.
+
+Você tem uma grande oportunidade, já sabemos como é difícil aprender uma
+linguagem de programação, ao usar a mesma linguagem para executar todo o seu trabalho na web -
+tanto no cliente quanto no servidor, você está em posição de vantagem.
+
+O que muda é o ecossistema.
+
+No navegador, na maioria das vezes, o que você está fazendo é interagir com a DOM ou com outra API Web, como os `cookies`. Essas APIs não existem no Node, é claro. Você não tem o `document`, `window` e todos os outros objetos fornecidos pelo navegador.
+
+E no navegador, não temos todas as excelentes APIs que o Node.js fornece por meio de seus módulos,
+como a funcionalidade de acesso ao sistema de arquivos.
+
+Outra grande diferença é que no Node.js você controla o ambiente. A menos que você esteja construindo
+um aplicativo open souce onde qualquer pessoa, de qualquer lugar, pode densenvolver, você sabe qual versão do
+Node em que você executará o aplicativo. Comparado com o ambiente do navegador, onde você não
+possui o luxo de escolher qual navegador seus visitantes usarão, isso é muito conveniente.
+
+Isso significa que você pode escrever todo o JavaScript ES6-7-8-9 moderno que sua versão do Node
+apoia.
+
+Como o JavaScript se move muito rápido, os navegadores podem ser um pouco lentos e os usuários podem levar tempo para fazer a atualização, então você se vê preso em usar versões mais antigas de JavaScript / ECMAScript.
+
+Você pode usar o Babel para transformar seu código em compatível com ES5 antes de enviá-lo para o
+navegador, mas no Node, você não precisará disso.
+
+Outra diferença é que o Node usa o sistema de módulos CommonJS, enquanto no navegador
+estão começando a utilizar o padrão ES Modules.
+
+Na prática, isso significa que, por enquanto, você usa `require()` no Node e `import` no
+navegador.
+
+* O livro é de 2018, hoje a prática mais comum é utilizar o padrão ES Modules. Apessar disso, algumas empresas ainda utilizam o CommonJS`
+
+
