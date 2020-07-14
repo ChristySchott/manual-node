@@ -13,7 +13,6 @@
 - Como instalar o Node
 - Quanto JavaScript você deve saber para usar o Node?
 - Diferenças entre o Node e o Browser
-- v8
 
 <strong>SEÇÃO 2:</strong> BÁSICO
 
