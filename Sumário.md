@@ -21,8 +21,6 @@
 - Como ler variáveis de ambiente
 - Opções de hospedagem Node
 - Composição
-- Virtual DOM
-- Fluxo de dados unidirecional
 
 <strong>SEÇÃO 3:</strong> LINHA DE COMANDO
 
