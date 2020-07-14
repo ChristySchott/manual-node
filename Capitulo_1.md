@@ -356,6 +356,6 @@ estão começando a utilizar o padrão ES Modules.
 Na prática, isso significa que, por enquanto, você usa `require()` no Node e `import` no
 navegador.
 
-* O livro é de 2018, hoje a prática mais comum é utilizar o padrão ES Modules. Apessar disso, algumas empresas ainda utilizam o CommonJS`
+**O livro é de 2018, hoje EM a prática mais comum é utilizar o padrão ES Modules. Apessar disso, algumas empresas ainda utilizam o CommonJS**
 
 
