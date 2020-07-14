@@ -78,7 +78,7 @@
 - Escrevendo arquivos
 - Trabalhando com pastas
 
-<strong>SEÇÃO 8:</strong> ALGUNS MÓDULOS ESSENCIAIS
+<strong>SEÇÃO 9:</strong> ALGUNS MÓDULOS ESSENCIAIS
 
 - fs module
 - path module
@@ -86,7 +86,7 @@
 - events module
 - http module
 
-<strong>SEÇÃO 8:</strong> DIVERSOS
+<strong>SEÇÃO 10:</strong> DIVERSOS
 
 - Streams
 - Trabalhando com MySQL
