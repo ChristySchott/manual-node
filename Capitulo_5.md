@@ -1,58 +1,57 @@
-<h1 align="center"> The event loop </h1>
+<h1 align="center"> O Event Loop </h1>
 
-### The Event Loop is one of the most important aspects to understand about JavaScript. This post explains it in simple terms
+### O Loop de Eventos é um dos mais importantes conceitos para entender sobre JavaScript. Este post explica isso nos termos simples.
 
-- [Introduction](#introduction)
-- [Blocking the event loop](#event-loop-blocking)
-- [The call stack](#call-stack)
-- [A simple event loop explanation](#event-loop-explanation)
-- [Queuing function execution](#queuing-function)
-- [The Message Queue](#message-queue)
-- [ES6 Job Queue](#es6-job-queue)
+- [Introdução](#introduction)
+- [Bloqueando o event loop](#event-loop-blocking)
+- [A pilha de chamadas (call stack)](#call-stack)
+- [Uma explicação simples do event loop](#event-loop-explanation)
+- [Execução das funções em fila](#queuing-function)
+- [A Fila de Mensagens](#message-queue)
+- [Fila de tarefas do ES6](#es6-job-queue)
 
-## <a name="introduction"></a> Introduction
+## <a name="introduction"></a> Introdução
 
-The **Event Loop** is one of the most important aspects to understand about JavaScript.
+ O **Event Loop** é um dos mais importantes conceitos para entender sobre JavaScript. 
 
-> I've programmed for years with JavaScript, yet I've never fully understood how thingswork under the hoods. It's completely fine to not know this concept in detail, but as usual,it's helpful to know how it works, and also you might just be a little curious at this point.
+> Programei por anos com JavaScript, no entanto, eu nunca entendi completamente como as coisas funcionam por baixo dos panos. É completamente normal não entender este conceito em detalhe, mas é util saber como ele funciona, e você também pode estar um pouco curioso neste momento.
 
-This post aims to explain the inner details of how JavaScript works with a single thread, andhow it handles asynchronous functions.
+Este post tem como objetivo explicar os detalhes internos de como o JavaScript funciona em uma única thread e como ele lida com funções assíncronas.
 
-Your JavaScript code runs single threaded. There is just one thing happening at a time.
+Seu código JavaScript é executado em uma thread única. Há apenas uma coisa acontecendo de cada vez.
 
-This is a limitation that's actually very helpful, as it simplifies a lot how you program withoutworrying about concurrency issues.
+Está limitação é realmente muito útil, pois simplifica muito a maneira como você programa, sem se preocupar com problemas de concorrência. 
 
-You just need to pay attention to how you write your code and avoid anything that could blockthe thread, like synchronous network calls or infinite [loops](https://flaviocopes.com/javascript-loops/).
+Você só precisa prestar atenção na forma como escreve seu código e evitar qualquer coisa que possa bloquear a thread, como chamadas de rede síncronas ou [loops](https://flaviocopes.com/javascript-loops/) infinitos.
 
-In general, in most browsers there is an event loop for every browser tab, to make everyprocess isolated and avoid a web page with infinite loops or heavy processing to block yourentire browser.
+No geral, a maioria dos navegadores tem um event loop em cada aba, para isolar todos os processos e evitar que uma página Web tenha loops infinitos ou processamento pesado travando o navegador.
 
-The environment manages multiple concurrent event loops, to handle API calls for example.
-[Web Workers](https://flaviocopes.com/web-workers/) run in their own event loop as well.
+O ambiente do navegador gerencia vários event loops simultâneos, para manipular chamadas de API, por exemplo.
+[Web Workers](https://flaviocopes.com/web-workers/) também são executados em seu próprio event loop.
 
-You mainly need to be concerned that your code will run on a single event loop, and writecode with this thing in mind to avoid blocking it
+Você precisa principalmente se preocupar com o fato de seu código ser executado em um único event loop e escrever o código com isso em mente para evitar bloqueá-lo.
 
-## <a name="event-loop-blocking"></a> Blocking the event loop
+## <a name="event-loop-blocking"></a> Bloqueando o event loop
 
-Any JavaScript code that takes too long to return back control to the event loop will block theexecution of any JavaScript code in the page, even block the UI thread, and the user cannotclick around, scroll the page, and so on.
+Qualquer código JavaScript que demore muito para retornar o controle ao event loop, bloqueará a execução de qualquer código JavaScript na página, bloqueando até mesmo a thread de interface do usuário, impedindo que o usuário de clicar, rolar a página e assim por diante.
 
-Almost all the I/O primitives in JavaScript are non-blocking. Network requests, [Node.js](https://flaviocopes.com/nodejs/) filesystem operations, and so on. Being blocking is the exception, and this is why JavaScript isbased so much on callbacks, and more recently on [promises](https://flaviocopes.com/javascript-promises/) and [async/await](https://flaviocopes.com/javascript-async-await/).
+Quase todas as primitivas de E/S em JavaScript são não bloqueantes. Solicitações de rede, operações do sistema de arquivos do [Node.js](https://flaviocopes.com/nodejs/), e assim por diante. O bloqueio é a exceção, e é por isso que o Javascript se baseia tanto em callbacks, e mais recentemente, em [Promises](ttps://flaviocopes.com/javascript-promises/) e [Async/Await](https://flaviocopes.com/javascript-async-await/).
+
+## <a name="call-stack"></a> A pilha de chamadas (call stack)
+
+A pilha de chamadas é uma fila LIFO (Ultimo a entrar, primeiro a sair).
+
+O event loop verifica continuamente a pilha de chamadas para ver se há alguma função que precise ser executada.
+
+Enquanto faz isso, ele adiciona qualquer chamada de função que encontra à pilha de chamadas e executa cada uma na ordem.
+
+Você conhece o rastreamento da pilha de erros com o qual você pode estar familiarizado, no debugger ou no console do navegador? O navegador consulta os nomes das funções na pilha de chamadas para informar você qual função originou a chamada atual.
 
 ![Informação do Browser](/images/Capitulo-5/browser-information.png)
 
-## <a name="call-stack"></a> The call stack
+## <a name="event-loop-explanation"></a> Uma explicação simples do event loop
 
-The call stack is a LIFO queue (Last In, First Out).
-
-The event loop continuously checks the call stack to see if there's any function that needs torun.
-
-While doing so, it adds any function call it finds to the call stack and executes each one in order.
-
-You know the error stack trace you might be familiar with, in the debugger or in the browserconsole? The browser looks up the function names in the call stack to inform you whichfunction originates the current call:
-
-## <a name="event-loop-explanation"></a> A simple event loop explanation
-
-Let's pick an example:
-
+Vamos ver este exemplo:
 
 ```javascript
 const bar = () => console.log('bar')
@@ -68,7 +67,7 @@ const foo = () => {
 foo()
 ```
 
-This code prints
+Este código imprime:
 
 ```
   foo
@@ -76,29 +75,29 @@ This code prints
   baz
 ```
 
-as expected.
+como esperado.
 
-When this code runs, first ```foo()``` is called. Inside ```foo()``` we first call ```bar()```, then we call ```baz()``` .
+Quando esse código é executado, o primeiro `foo()` é chamado. Dentro de `foo()` primeiro chamamos `bar()`, depois chamamos `baz()`.
 
-At this point the call stack looks like this:
+Nesse ponto, a pilha de chamadas está assim:
 
 ![Call Stack](./images/Capitulo-5/callstack.png)
 
-The event loop on every iteration looks if there’s something in the call stack, and executes it:
+O event loop em cada iteração verifica se há algo na pilha de chamadas e o executa:
 
-![Iteration](./images/Capitulo-5/iterations.png)
+![Iteração](./images/Capitulo-5/iterations.png)
 
-until the call stack is empty.
+até que a pilha de chamadas esteja vazia.
 
-## <a name="queuing-function"></a> Queuing function execution
+## <a name="queuing-function"></a> Execução das funções em fila
 
-The above example looks normal, there’s nothing special about it: JavaScript finds things to execute, runs them in order.
+O exemplo acima parece normal, não há nada de especial nisso: JavaScript encontra coisas para executar e as executa na ordem.
 
-Let’s see how to defer a function until the stack is clear.
+Vamos ver como adiar uma função até que a pilha esteje vazia.
 
-The use case of `setTimeout(() => {}), 0)` is to call a function, but execute it once every other function in the code has executed.
+O caso de uso `setTimeout(() => {}), 0)` é para chamar uma função, mas somente executá-la quando todas as outras funções do código forem executadas. 
 
-Take this example:
+Veja este exemplo:
 
 ```
 const bar = () => console.log('bar')
@@ -114,7 +113,7 @@ const foo = () => {
 foo()
 ```
 
-This code prints, maybe surprisingly:
+Esse código imprime, talvez surpreendentemente:
 
 ```
 foo
@@ -122,38 +121,38 @@ baz
 bar
 ```
 
-When this code runs, first `foo()` is called. Inside `foo()` we first call setTimeout, passing `bar` asan argument, and we instruct it to run immediately as fast as it can, passing 0 as the timer.
-Then we call `baz()`.
+Quando esse código é executado, o primeiro `foo()` é chamado. Dentro de `foo()`, chamamos o primeiro `setTimeout`, passando `bar` como argumento e instruímos a executar imediatamente o mais rápido possível, passando `0` para o cronômetro.
+Então chamamos `baz()`.
 
-At this point the call stack looks like this:
+Nesse ponto, a pilha de chamadas está assim:
 
-![Call Stack](./images/Capitulo-5/callstack-2.png)
+![Pilha de chamadas](./images/Capitulo-5/callstack-2.png)
 
-Here is the execution order for all the functions in our program:
+Aqui está a ordem de execução de todas as funções em nosso programa:
 
-![Iterations](./images/Capitulo-5/iterations-2.png)
+![Iterações](./images/Capitulo-5/iterations-2.png)
 
-Why is this happening?
+Por que isso está acontecendo ?
 
-## <a name="message-queue"></a> The Message Queue
+## <a name="message-queue"></a> A Fila de Mensagens
 
-When `setTimeout()` is called, the Browser or Node.js starts the timer. Once the timer expires, in this case immediately as we put `0` as the timeout, the callback function is put in the **Message Queue**.
+Quando `setTimeout()` é chamado, o Navegador ou o Node.js inicia o cronômetro. Quando o cronômetro expirar, neste caso imediatamente, pois colocamos `0` como tempo limite, a função callback é colocada na **Fila de Mensagens**.
 
-The Message Queue is also where user-initiated events like click and keyboard events or [fetch](https://flaviocopes.com/fetch-api/) responses are queued before your code has the opportunity to react to them. Or also [DOM](https://flaviocopes.com/dom/) events like `onLoad`.
+A Fila de Mensagens também é onde os eventos iniciados pelo usuário, como eventos de clique, teclado ou respostas da [fetch-api](https://flaviocopes.com/fetch-api/) são colocados antes que seu código tenha a oportunidade de reagiar a eles. Ou também eventos do [DOM](https://flaviocopes.com/dom/) como o `onLoad`.
 
-**The loop gives priority to the call stack. It first processes everything it finds in the call stack, and once there’s nothing in there, it goes to pick up things in the message queue.**
+**O loop dá prioridade à pilha de chamadas. Primeiro, processa tudo que encontra na pilha de chamadas e, como não há nada lá, ele captura as coisas na fila de mensagens.**
 
-We don’t have to wait for functions like `setTimeout`, fetch or other things to do their own work, because they are provided by the browser, and they live on their own threads. For example, if you set the `setTimeout` timeout to 2 seconds, you don’t have to wait 2 seconds - the wait happens elsewhere.
+Não precisamos esperar por funções como `setTimeout`, `fetch` ou outras coisas façam seu próprio trabalho, porque elas são fornecidas pelo navegador e elas vivem em suas próprias threads. Por exemplo, se você definir o tempo limite de `setTimeout` para 2 segundos, não precisará esperar 2 segundos, a espera ocorrerá em outro lugar.
 
-## <a name="es6-job-queue"></a> ES6 Job Queue
+## <a name="es6-job-queue"></a> Fila de tarefas do ES6
 
-[ECMAScript 2015](https://flaviocopes.com/ecmascript/) introduced the concept of the Job Queue, which is used by Promises (also introduced in ES6/ES2015). It’s a way to execute the result of an async function as soon as possible, rather than being put at the end of the call stack.
+O [ECMAScript 2015](https://flaviocopes.com/ecmascript/) introduziu o conceito de fila de tarefas, usada pelo `Promises` (também introduzida no ES2015). É uma maneira de executar o resultado de uma função assíncrona o mais rápido possível, em vez de ser colocada no final da pilha de chamadas.
 
-Promises that resolve before the current function ends will be executed right after the current function.
+As Promises que finalizarem antes que a função atual termine, serão executadas logo após a função atual.
 
-I find nice the analogy of a rollercoaster ride at an amusement park: the message queue puts you back in queue with after all the other people in the queue, while the job queue is the fastpass ticket that lets you take another ride right after you finished the previous one.
+Acho legal a analogia de uma montanha-russa em um parque de diversões: a fila de mensagens coloca você de volta na fila com todas as outras pessoas da fila, enquanto a fila de tarefas é o bilhete rápido que te permite ir de novo logo depois que você terminou a volta anterior.
 
-Example:
+Exemplo:
 
 ```
 const bar = () => console.log('bar')
@@ -164,7 +163,7 @@ const foo = () => {
   console.log('foo')
   setTimeout(bar, 0)
   newPromise((resolve, reject) =>
-    resolve('should be right after baz, before bar')
+    resolve('deve estar após baz e antes de bar')
   ).then(resolve => console.log(resolve))
   baz()
 }
@@ -172,13 +171,13 @@ const foo = () => {
 foo()
 ```
 
-This prints:
+Isso imprime:
 
 ```
 foo
 baz
-should be right after baz, before bar
+deve estar após baz e antes de bar
 bar
 ```
 
-That's a big difference between Promises (and Async/await, which is built on promises) andplain old asynchronous functions through `setTimeout()` or other platform APIs.
+Essa é uma grande diferença entre Promises e o Async/await, que é baseado em Promises, e explica as funções assíncronas antigas através do `setTimeout()` ou de outras plataformas de APIs.
