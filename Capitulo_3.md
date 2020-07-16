@@ -291,5 +291,63 @@ const timer = setInterval(() => {
 }, 100)
 ```
 
+## Aceitando entradas da linha de comando
 
+Como tornar um programa CLI do Node.js. interativo?
 
+O Node, desde a versão 7, fornece o módulo `readline` para executar exatamente isso: obter a entrada de uma stream legível, como a stream `process.stdin`, que durante a execução de uma aplicação Node é a entrada do terminal, uma linha de cada vez.
+
+```
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+readline.question(`Qual o seu nome?`, (name) => {
+  console.log(`Olá ${name}!`)
+  readline.close()
+})
+
+```
+
+Esse trecho de código solicita o nome de usuário e, uma vez que o texto é inserido e o usuário pressiona
+enter, enviamos uma saudação.
+
+O método `question()` mostra o primeiro parâmetro (uma pergunta) e aguarda a entrada do usuário. Isso
+chama a função de callback depois que o enter é pressionado.
+
+Nesta callback, fechamos a interface `readline`.
+
+O `readline` oferece vários outros métodos, e eu vou deixar você conferir no pacote
+documentação que eu vinculei acima.
+
+Se você precisar solicitar uma senha, é melhor repeti-la mostrando um `*`.
+
+A maneira mais simples é usar o pacote `readline-sync`, que é muito semelhante em termos de
+API e lida com isso imediatamente.
+
+Uma solução mais completa e abstrata é fornecida pelo pacote `Inquirer.js`.
+
+Você pode instalá-lo usando o `npm install inquirer` e, em seguida, pode replicar o código acima, como
+isto:
+
+```
+const inquirer = require('inquirer')
+
+var questions = [{
+  type: 'input',
+  name: 'name',
+  message: "Qual o seu nome?",
+}]
+
+inquirer.prompt(questions).then(answers => {
+  console.log(`Oi ${answers['name']}!`)
+})
+
+```
+
+O `Inquirer.js` permite fazer várias coisas, como mostrar várias opções, ter radio buttons,
+confirmações e muito mais.
+
+Vale a pena conhecer todas as alternativas, especialmente as internas fornecidas pelo Node, mas se você
+planeja levar a entrada da CLI para o próximo nível, o `Inquirer.js` é a melhor opção.

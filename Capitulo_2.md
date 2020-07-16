@@ -1,4 +1,4 @@
-<h1 align="center> Rodando scripts do Node da linha de comando </h1>
+<h1 align="center"> Rodando scripts do Node da linha de comando </h1>
 
 ## Como rodar qualquer comando do Node na CLI
 
