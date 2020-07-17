@@ -62,7 +62,6 @@ fs.stat('/Users/flavio/test.txt', (err, stats) => {
   return
   }
 })
-
 ```
 
 O Node também fornece um método de sincronização, que bloqueia o encadeamento até que as estatísticas do arquivo estejam prontas:
@@ -74,7 +73,6 @@ try {
 } catch (err) {
   console.error(err)
 }
-
 ```
 
 As informações do arquivo estão incluídas na variável de estatísticas. Que tipo de informação podemos extrair
@@ -101,7 +99,6 @@ const fs = require('fs')
   stats.isSymbolicLink() //false
   stats.size //1024000 //= 1MB
 })
-
 ```
 
 ## Caminhos de arquivo (file path)
@@ -300,4 +297,110 @@ Todos esses métodos gravam o conteúdo completo no arquivo antes de retornar o 
 programa (na versão assíncrona, isso significa executar a callback).
 
 Nesse caso, uma opção melhor é escrever o conteúdo do arquivo usando streams.
+
+## Trabalhando com pastas
+
+### Como interagir com pastas usando o Node
+
+O módulo `fs` provém métodos muito úteis que você pode usar para trabalhar com pastas. 
+
+### Checando se uma pasta existe
+
+Use o `fs.access()`para checar se a pasta existe e o Node pode acessá-la.
+
+### Criando uma nova pasta
+
+Use `fs.mkdir()` ou `fs.mkdirSync()` para criar uma nova pasta.
+
+```
+const fs = require('fs')
+
+const folderName = '/Users/flavio/test'
+ try {
+   if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir)
+ }
+ } catch (err) {
+   console.error(err)
+ }
+```
+### Lendo o conteúdo de um diretório
+
+Use `fs.readdir()` ou `fs.readdirSync`para ler o conteúdo de um diretório.
+Esse pedaço de código lê o conteúdo de uma pasta, tanto os arquivos quanto os subarquivos, e returna o seu caminho relativo:
+```
+const fs = require('fs')
+
+const path = require('path')
+
+const folderPath = '/Users/flavio'
+fs.readdirSync(folderPath)
+```
+Você pode obter o caminho completo:
+
+```
+fs.readdirSync(folderPath).map(fileName => {
+  return path.join(folderPath, fileName)
+}
+```
+
+Você também pode filtrar os resultados para retornar apenas os arquivos e excluir as pastas:
+
+```
+const isFile = fileName => {
+  return fs.lstatSync(fileName).isFile()
+}
+
+fs.readdirSync(folderPath).map(fileName => {
+  return path.join(folderPath, fileName)).filter(isFile)
+}
+
+```
+
+### Renomeando uma pasta
+
+Use `fs.rmdir()` ou `fs.rmdirSync()` para remover uma pasta.
+Remover uma pasta que tenha conteúdo pode ser mais complicado do que você pensa.
+
+
+Nesse caso eu recomendo instalação do módulo `fs-extra`, que é muito popular e estável, além de ser uma substituição do módulo `fs`, provendo ainda mais recursos que ele.
+
+Nesse caso, o método `remove()` é o que você precisa.
+
+Instale isso usando
+```
+npm install fs-extra
+```
+e use isso assim:
+```
+const fs = require('fs-extra')
+const folder = '/Users/flavio'
+
+fs.remove(folder, err => {
+  console.error(err)
+})
+```
+Isso também pode ser usado com promises:
+
+```
+fs.remove(folder).then(() => {
+  //done
+}).catch(err => {
+  console.error(err)
+})
+```
+ou com async/await:
+```
+async function removeFolder(folder) {
+ try {
+  await fs.remove(folder)
+  //done
+ } catch (err) {
+  console.error(err)
+  }
+}
+
+const folder = '/Users/flavio'
+ removeFolder(folder)
+```
 
