@@ -57,7 +57,6 @@
 - Callbacks
 - Promises
 - async/await
-- Node Event Emitter (Emissor de eventos Node)
 
 <strong>SEÇÃO 7:</strong> NETWORKING
 
