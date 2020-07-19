@@ -262,18 +262,18 @@ O HTTP também é perfeitamente capaz de transferir esses arquivos, deixando cli
 
 **O que acontece quando você digita uma URL no navegador, do início ao fim**
 
-- [O protocolo HTTP](http-protocol)
-- [Eu analiso apenas requisições de URL](url-requests)
-- [Estamos nos referindo ao macOS/Linux](things-relate)
-- [Fase de pesquisa do DNS](dns-lookup)
-  - [gethostbyname](gethostbyname)
-- [Handshaking de requisição TCP](tcp-request-handshaking)
-- [Enviando a requisição](sending-the-request)
-  - [A linha da requisição](request-line)
-  - [O cabeçalho da requisição](request-header)
-  - [O corpo da requisição](request-body)
-- [A resposta](the-response)
-- [Analisar o HTML](parse-html)
+- [O protocolo HTTP](#http-protocol)
+- [Eu analiso apenas requisições de URL](#url-requests)
+- [Estamos nos referindo ao macOS/Linux](#things-relate)
+- [Fase de pesquisa do DNS](#dns-lookup)
+  - [gethostbyname](#gethostbyname)
+- [Handshaking de requisição TCP](#tcp-request-handshaking)
+- [Enviando a requisição](#sending-the-request)
+  - [A linha da requisição](#request-line)
+  - [O cabeçalho da requisição](#request-header)
+  - [O corpo da requisição](#request-body)
+- [A resposta](#the-response)
+- [Analisar o HTML](#parse-html)
 
 > Este artigo descreve como os navegadores executam requisições usando o protocolo HTTP/1.1
 
