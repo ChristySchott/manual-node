@@ -83,7 +83,6 @@
 - path module
 - os module
 - events module
-- http module
 
 <strong>SEÇÃO 10:</strong> DIVERSOS
 
