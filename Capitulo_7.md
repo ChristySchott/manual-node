@@ -28,7 +28,7 @@ Em 1993, Mosaic, o primeiro navegador gráfico da web, foi lançando e as coisas
 
 A Web se tornou a aplicação indispensável da Internet. 
 
-Com o tempo, a Web e o ecossistema ao seu redor evoluíram dramaticamente, mas o básico ainda permanece. Um exemplo dessa evolução: O HTTP agora oferece, além de páginas da Web, APIs REST, uma método comum de acessar programaticamente um serviço pela Internet.
+Com o tempo, a Web e o ecossistema ao seu redor evoluíram dramaticamente, mas o básico ainda permanece. Um exemplo dessa evolução: O HTTP agora oferece, além de páginas da Web, APIs REST, um método comum de acessar programaticamente um serviço pela Internet.
 
 O HTTP sofreu uma pequena revisão em 1997 com o HTTP/1.1, e em 2015 seu sucessor, o HTTP/2, foi padronizado e agora está sendo implementado pelos principais servidores da Web usados em todo o mundo.
 
@@ -38,7 +38,7 @@ Dito isto, os blocos de construção do HTTP/2 e HTTPS têm suas raízes no HTTP
 
 ### Documentos HTML
 
-O HTTP é a maneira dos **navegadores da Web**, como Chrome, Firefox, Edge e muitos outros (daqui em diante chamados de clientes) se comunicam com os **servidores da Web**.
+O HTTP é a maneira dos **navegadores da Web**, como Chrome, Firefox, Edge e muitos outros (daqui em diante chamados de clientes) se comunicarem com os **servidores da Web**.
 
 O nome Protocolo de Transferência de Hipertexto (HTTP) deriva da necessidade de transferir não apenas arquivos, como no FTP (Protocolo de Transferência de Arquivos), mas também hipertextos, que seriam escritos usando HTML, representados graficamente pelo navegador com uma boa apresentação e links interativos.
 
@@ -254,9 +254,9 @@ Um servidor HTTP não transfere somente arquivos HTML, transfere também muitos 
 
 Isso depende da configuração.
 
-O HTTP também é perfeitamente capaz de transferir esses arquivos, deixando cliente informado sobre o tipo de arquivo, para que ele interprete-os da maneira correta.
+O HTTP também é perfeitamente capaz de transferir esses arquivos, deixando o cliente informado sobre o tipo de arquivo, para que ele interprete-os da maneira correta.
 
-É assim que a Web funciona: quando uma página HTML é recuperada pelo navegador, ela é interpretada e qualquer outro recurso necessário para exibir a propriedade (CSS, JavaScript, imagens, ...) é recuperado por meio de requisições HTTP adicionais para o mesmo servidor.
+É assim que a Web funciona: quando uma página HTML é recuperada pelo navegador, ela é interpretada e qualquer outro recurso necessário para exibir as propriedades (CSS, JavaScript, imagens, ...), são recuperados por meio de requisições HTTP adicionais para o mesmo servidor.
 
 ## <a name="http-requests"></a> Como as requisições HTTP funcionam
 
@@ -892,7 +892,7 @@ Então, dependendo do conteúdo da página da Web, você pode precisar de mais c
 
 Durante qualquer uma dessas conexões, qualquer rede que seus dados estão passando podem ser **inspecionadas** e **manipuladas**.
 
-As consequências podem ser graves: você pode ter todas as suas atividades de rede monitoradas e registradas; em uma terceira parte, você nem sabe que elas existem, algumas redes [podem injetar anúncios](https://justinsomnia.org/2012/04/hotel-wifi-javascript-injection/) e você pode estar sujeito a um ataque intermediário, uma ameaça à segurança na qual o invasor pode manipular seus dados e até mesmo se passar por seu computador na rede. É muito fácil alguém ouvir apenas pacotes HTTP sendo transmitidos por uma rede Wi-Fi pública e não criptografada.
+As consequências podem ser graves: você pode ter todas as suas atividades de rede monitoradas e registradas. Em uma terceira parte, você nem sabe que elas existem, algumas redes [podem injetar anúncios](https://justinsomnia.org/2012/04/hotel-wifi-javascript-injection/) e você pode estar sujeito a um ataque intermediário, uma ameaça à segurança na qual o invasor pode manipular seus dados e até mesmo se passar por seu computador na rede. É muito fácil alguém ouvir apenas pacotes HTTP sendo transmitidos por uma rede Wi-Fi pública e não criptografada.
 
 O HTTPS visa solucionar o problema na raiz: toda a comunicação entre o navegador e o servidor da Web é criptografada.
 
@@ -918,5 +918,5 @@ Entretanto, o HTTPS permite o uso do mais novo protocolo **HTTP/2**, que possui 
 
 Por quê? Há muitas razões, uma é a compactação de cabeçalho, a outra é a multiplexação de recursos. Um deles é o envio pelo servidor: o servidor pode enviar mais recursos quando um recurso é solicitado. Portanto, se o navegador solicita uma página, ele também receberá todos os recursos necessários (imagens, CSS, JS). 
 
-Detalhes à parte, o HTTP/2 é uma grande melhoria em relação ao HTTP/1.1 **e requer HTTPS**. Isso significa que o HTTPS, apesar de ter a sobrecarga de criptografia, é muito mais rápido que o HTTP, caso as coisas estejam configuradas corretamente com uma instalação moderna.
+Detalhes à parte, o HTTP/2 é uma grande melhoria em relação ao HTTP/1.1 **e requer HTTPS**. Isso significa que o HTTPS, apesar de ter a sobrecarga de criptografia, é muito mais rápido que o HTTP, caso as coisas estejam configuradas corretamente e com uma instalação moderna.
 
