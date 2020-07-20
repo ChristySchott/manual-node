@@ -14,9 +14,9 @@
 
  O **Event Loop** é um dos mais importantes conceitos para entender sobre JavaScript. 
 
-> Programei por anos com JavaScript, no entanto, eu nunca entendi completamente como as coisas funcionam por baixo dos panos. É completamente normal não entender este conceito em detalhe, mas é util saber como ele funciona, e você também pode estar um pouco curioso neste momento.
+> Programei por anos com JavaScript, no entanto, eu nunca entendi completamente como as coisas funcionam por baixo dos panos. É completamente normal não entender este conceito em detalhe, mas é util saber como ele funciona e você também pode estar um pouco curioso neste momento.
 
-Este post tem como objetivo explicar os detalhes internos de como o JavaScript funciona em uma única thread e como ele lida com funções assíncronas.
+Este post tem como objetivo, explicar os detalhes internos de como o JavaScript funciona em uma única thread e como ele lida com funções assíncronas.
 
 Seu código JavaScript é executado em uma thread única. Há apenas uma coisa acontecendo de cada vez.
 
@@ -24,28 +24,29 @@ Está limitação é realmente muito útil, pois simplifica muito a maneira como
 
 Você só precisa prestar atenção na forma como escreve seu código e evitar qualquer coisa que possa bloquear a thread, como chamadas de rede síncronas ou [loops](https://flaviocopes.com/javascript-loops/) infinitos.
 
-No geral, a maioria dos navegadores tem um event loop em cada aba, para isolar todos os processos e evitar que uma página Web tenha loops infinitos ou processamento pesado travando o navegador.
+No geral, a maioria dos navegadores tem um event loop em cada aba. Isolando todos os processos e evitando que uma página Web tenha loops infinitos ou processamento pesado travando o navegador.
 
-O ambiente do navegador gerencia vários event loops simultâneos, para manipular chamadas de API, por exemplo.
-[Web Workers](https://flaviocopes.com/web-workers/) também são executados em seu próprio event loop.
+Por exemplo, para manipular chamadas de API, o ambiente do navegador gerencia vários event loops simultâneos. 
+
+Os [Web Workers](https://flaviocopes.com/web-workers/) também são executados em seu próprio event loop.
 
 Você precisa principalmente se preocupar com o fato de seu código ser executado em um único event loop e escrever o código com isso em mente para evitar bloqueá-lo.
 
 ## <a name="event-loop-blocking"></a> Bloqueando o event loop
 
-Qualquer código JavaScript que demore muito para retornar o controle ao event loop, bloqueará a execução de qualquer código JavaScript na página, bloqueando até mesmo a thread de interface do usuário, impedindo que o usuário de clicar, rolar a página e assim por diante.
+Qualquer código JavaScript que demore muito para retornar o controle ao event loop, bloqueará a execução de qualquer código JavaScript na página, bloqueando até mesmo a thread de interface do usuário, impedindo o usuário de clicar, rolar a página e assim por diante.
 
-Quase todas as primitivas de E/S em JavaScript são não bloqueantes. Solicitações de rede, operações do sistema de arquivos do [Node.js](https://flaviocopes.com/nodejs/), e assim por diante. O bloqueio é a exceção, e é por isso que o Javascript se baseia tanto em callbacks, e mais recentemente, em [Promises](ttps://flaviocopes.com/javascript-promises/) e [Async/Await](https://flaviocopes.com/javascript-async-await/).
+Quase todas as primitivas de E/S em JavaScript são não bloqueantes. Solicitações de rede, operações do sistema de arquivos do [Node.js](https://flaviocopes.com/nodejs/). O bloqueio é a exceção, é por isso que o Javascript se baseia tanto em callbacks, e mais recentemente, em [Promises](https://flaviocopes.com/javascript-promises/) e [Async/Await](https://flaviocopes.com/javascript-async-await/).
 
 ## <a name="call-stack"></a> A pilha de chamadas (call stack)
 
-A pilha de chamadas é uma fila LIFO (Ultimo a entrar, primeiro a sair).
+A pilha de chamadas é uma fila LIFO (Ultimo a entrar e primeiro a sair).
 
 O event loop verifica continuamente a pilha de chamadas para ver se há alguma função que precise ser executada.
 
 Enquanto faz isso, ele adiciona qualquer chamada de função que encontra à pilha de chamadas e executa cada uma na ordem.
 
-Você conhece o rastreamento da pilha de erros com o qual você pode estar familiarizado, no debugger ou no console do navegador? O navegador consulta os nomes das funções na pilha de chamadas para informar você qual função originou a chamada atual.
+Você conhece a stack de erros que você normalmente usa, no debugger ou no console do navegador? O navegador consulta os nomes das funções na pilha de chamadas para informar você qual função originou a chamada atual.
 
 ![Informação do Browser](/images/Capitulo-5/browser-information.png)
 
@@ -70,9 +71,9 @@ foo()
 Este código imprime:
 
 ```
-  foo
-  bar
-  baz
+foo
+bar
+baz
 ```
 
 como esperado.
