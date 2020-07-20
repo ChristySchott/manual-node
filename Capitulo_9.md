@@ -541,10 +541,6 @@ Define a quantidade máxima de listeners que você pode adicionar a EventListene
 door.setMaxListeners(50)
 ```
 
-## http module
-
-### O módulo http do Node.js fornece funções e classes úteis para criar um Servidor HTTP
-
 
 
 
