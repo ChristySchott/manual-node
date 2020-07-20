@@ -1,54 +1,54 @@
-<h1 align="center"> Outros </h1>
+<h1 align="center"> Diversos </h1>
 
 - [Streams](#streams)
-- [Working with MySQL](#working-mysql)
-- [Difference between development and production](#difference-development-production)
+- [Trabalhando com MySQL](#working-mysql)
+- [Diferença entre desenvolvimento e produção](#difference-development-production)
 
 ## <a name="streams"></a> Streams
 
-**Learn what streams are for, why are they so important, and how to use them.**
+**Saiba para que servem streams, por que eles são tão importantes e como usá-los.**
 
-- [What are streams](#what-are-streams)
-- [Why streams](#why-streams)
-- [An example of a stream](#example-of-stream)
+- [O que são streams](#what-are-streams)
+- [Porque streams](#why-streams)
+- [Um exemplo de um stream](#example-of-stream)
 - [pipe()](#pipe)
-- [Streams-powered Node APIs](#powered-node-apis)
-- [Different types of streams](#different-types)
-- [How to create a readable stream](#readable-stream)
-- [How to create a writable stream](#writable-stream)
-- [How to get data from a readable stream](#get-data-from-readable-stream)
-- [How to send data to a writable stream](#send-data-to-writable-stream)
-- [Signaling a writable stream that you ended writing](#signaling-writable-stream)
-- [Conclusion](#streams-conclusion)
+- [Streams mantidos por APIs do Node](#powered-node-apis)
+- [Diferente tipos de streams](#different-types)
+- [Como criar um stream legível](#readable-stream)
+- [Como criar um stream gravável](#writable-stream)
+- [Como obter dados de um stream legível](#get-data-from-readable-stream)
+- [Como enviar dados para um stream gravável](#send-data-to-writable-stream)
+- [Apontar para um stream grávavel que você escreveu](#signaling-writable-stream)
+- [Conclusão](#streams-conclusion)
 
-### <a name="what-are-streams"></a> What are streams
+### <a name="what-are-streams"></a> O que são streams
 
-Streams are one of the fundamental concepts that power Node.js applications.
+Streams são um dos conceitos fundamentais que impulsionam as aplicações Node.js.
 
-They are a way to handle reading/writing files, network communications, or any kind of end-to-end information exchange in an efficient way.
+Eles são uma maneira eficiente de lidar com arquivos de leitura/gravação, comunicações de rede ou todo tipo de troca de informações ponta a ponta.
 
-Streams are not a concept unique to Node.js. They were introduced in the Unix operatingsystem decades ago, and programs can interact with each other passing streams through thepipe operator (`|`).
+Streams não são um conceito exclusivo do Node.js. Eles foram introduzidos há décadas no sistema operacional Unix, lá os programas podem interagir entre si, passando streams através do operador pipe (`|`).
 
-For example, in the traditional way, when you tell the program to read a file, the file is read intomemory, from start to finish, and then you process it.
+Por exemplo, na maneira tradicional, quando você diz para o programa ler um arquivo, o arquivo é lido do começo ao fim na memória, para depois ser processado.
 
-Using streams you read it piece by piece, processing its content without keeping it all in memory.
+Usando streams você o lê peça por peça, processando seu conteúdo sem manter tudo na memória.
 
-The Node.js [`stream` module](https://nodejs.org/api/stream.html) provides the foundation upon which all streaming APIs are build.
+O [módulo de `stream`](https://nodejs.org/api/stream.html) do Node.js fornece a base sobre a qual todas as APIs de streaming são construídas.
 
-### <a name="why-streams"></a> Why streams
+### <a name="why-streams"></a> Porque streams
 
-Streams basically provide two major advantages using other data handling methods:
+Streams fornecem basicamente duas vantagens principais em relação à outros métodos de manipulação de dados:
 
-- **Memory efficiency**: you don't need to load large amounts of data in memory before youStreams178
-are able to process it
+- **Eficiência de memória**: você não precisa carregar grandes quantidades de dados na memória antes de
+poder processá-los
 
-- **Time efficiency**: it takes way less time to start processing data as soon as you have it,rather than waiting till the whole data payload is available to start
+- **Eficiência de tempo**: leva muito menos tempo para começar a processar dados assim que você os tiver, em vez de esperar até que toda a carga útil de dados esteja disponível
 
-### <a name="example-of-stream"></a> An example of a stream
+### <a name="example-of-stream"></a> Um exemplo de stream
 
-A typical example is the one of reading files from a disk.
+Um exemplo típico é o de ler arquivos de um disco.
 
-Using the Node `fs` module you can read a file, and serve it over HTTP when a newconnection is established to your http server:
+Usando o módulo do Node `fs` você pode ler um arquivo e enviá-lo por HTTP quando uma nova conexão for estabelecida no servidor http:
 
 ```
 const http = require('http')
@@ -62,11 +62,11 @@ const server = http.createServer(function (req, res) {
 server.listen(3000)
 ```  
     
-`readFile()` reads the full contents of the file, and invokes the callback function when it's done.
+`readFile()` lê todo o conteúdo do arquivo e chama a função callback terminar.
 
-`res.end(data)` in the callback will return the file contents to the HTTP client.
+`res.end(data)` a função callback retornará o conteúdo do arquivo para o cliente HTTP.
 
-If the file is big, the operation will take quite a bit of time. Here is the same thing written using streams:
+Se o arquivo for grande, a operação levará bastante tempo. Aqui está a mesma coisa escrita usando streams:
 
 ```
 const http = require('http')
@@ -79,81 +79,80 @@ const server = http.createServer((req, res) => {
 server.listen(3000)
 ```
 
-Instead of waiting until the file is fully read, we start streaming it to the HTTP client as soon aswe have a chunk of data ready to be sent.
+Em vez de esperar até que o arquivo seja totalmente lido, começamos a transmiti-lo para o cliente HTTP assim que tivermos uma porção de dados pronta para ser enviada.
 
 ### <a name="pipe"></a> pipe()
 
-The above example uses the line `stream.pipe(res)`: the `pipe()` method is called on the file stream.
+O exemplo acima usa a linha `stream.pipe(res)`: o método `pipe()` é chamado no fluxo de arquivos.
 
-What does this code do? It takes the source, and pipes it into a destination.
+O que faz este código? Ele pega o código fonte e o envia para um destino.
 
-You call it on the source stream, so in this case, the file stream is piped to the HTTP response.
+Você o chama no código do stream. Nesse caso, o stream de arquivos é enviado para a resposta HTTP.
 
-The return value of the `pipe()` method is the destination stream, which is a very convenientthing that lets us chain multiple `pipe()` calls, like this:
+O valor de retorno do método `pipe()` é o stream de destino, que é uma coisa muito conveniente e nos permite encadear várias chamadas `pipe ()`, assim:
 
 `src.pipe(dest1).pipe(dest2)`
 
-This construct is the same as doing
+Essa construção é o mesmo que fazer:
 
 ```
 src.pipe(dest1)
 dest1.pipe(dest2)
 ```
 
-### <a name="powered-node-apis"></a> Streams-powered Node APIs
+### <a name="powered-node-apis"></a> Streams mantidos por APIs do Node
 
-Due to their advantages, many Node.js core modules provide native stream handling capabilities, most notably:
+Devido às suas vantagens, muitos módulos principais do Node.js fornecem recursos nativos de manipulação de stream, os mais notáveis são:
 
-- `process.stdin` returns a stream connected to stdin
-- `process.stdout` returns a stream connected to stdout
-- `process.stderr` returns a stream connected to stderr
-- `fs.createReadStream()` creates a readable stream to a file
-- `fs.createWriteStream()` creates a writable stream to a file
-- `net.connect()` initiates a stream-based connection
-- `http.request()` returns an instance of the http. ClientRequest class, which is a writablestream
-- `zlib.createGzip()` compress data using gzip (a compression algorithm) into a stream
-- `zlib.createGunzip()` decompress a gzip stream.
-- `zlib.createDeflate()` compress data using deflate (a compression algorithm) into a stream
-- `zlib.createInflate()` decompress a deflate stream
+- `process.stdin` retorna um stream conectado ao stdin
+- `process.stdout` retorna um stream conectado ao stdout
+- `process.stderr` retorna um stream conectado ao stderr
+- `fs.createReadStream()` cria um stream legível para um arquivo
+- `fs.createWriteStream ()` cria um stream gravável em um arquivo
+- `net.connect ()` inicia uma conexão baseada em stream
+- `http.request ()` retorna uma instância do http. Classe ClientRequest, que é um stream gravável
+- `zlib.createGzip ()` compacta dados usando gzip (um algoritmo de compressão) em um stream
+- `zlib.createGunzip ()` descomprime um stream gzip.
+- `zlib.createDeflate ()` compacta dados usando deflate (um algoritmo de compressão) em um stream
+- `zlib.createInflate ()` descomprime um stream de deflate
 
-### <a name="different-types"></a> Different types of streams
+### <a name="different-types"></a> Diferente tipos de streams
 
-There are four classes of streams:
+Existem quatro classes de streams:
 
-- Readable: a stream you can pipe from, but not pipe into (you can receive data, but notsend data to it). When you push data into a readable stream, it is buffered, until aconsumer starts to read the data.
-- Writable: a stream you can pipe into, but not pipe from (you can send data, but notStreams180
-receive from it)
-- Duplex: a stream you can both pipe into and pipe from, basically a combination of aReadable and Writable stream
-- Transform: a Transform stream is similar to a Duplex, but the output is a transform of its input
+- Readable: um stream no qual você pode receber, mas não enviar dados. Quando você envia dados para um stream legível, ele é armazenado em buffer, até que o consumidor comece a ler os dados.
+- Writable: um stream no qual você pode enviar, mas não receber dados.
+- Duplex: um stream no qual você pode enviar e receber, basicamente uma combinação de um stream Readable e Writable.
+- Transform: um stream semelhante ao Duplex, mas a saída é uma transformação de sua entrada.
 
-### <a name="readable-stream"></a> How to create a readable stream
+### <a name="readable-stream"></a> Como criar um stream legível
 
-We get the Readable stream from the [`stream` module](https://nodejs.org/api/stream.html), and we initialize it
+Nós obtemos um stream Readable a partir do módulo [`stream`](https://nodejs.org/api/stream.html) e nós o inicializamos:
 
 ```
 const Stream = require('stream')
 const readableStream = new Stream.Readable()
 ```
 
-Now that the stream is initialized, we can send data to it:
+Agora que o stream foi inicializado, podemos enviar dados para ele:
 
 ```
 readableStream.push('hi!')
 readableStream.push('ho!')
 ```
 
-### <a name="writable-stream"></a> How to create a writable stream
+### <a name="writable-stream"></a> Como criar um stream gravável
 
-To create a writable stream we extend the base `Writable` object, and we implement its_write() method.
+Para criar um stream gravável, criamos o objeto base `Writable` e implementamos o método `its_write()`.
 
-First create a stream object:
+Primeiro, crie um objeto stream:
 
 ```
 const Stream = require('stream')
 const writableStream = new Stream.Writable()
 ```
 
-then implement `_write`:
+depois implemente `_write`:
 
 ```
 writableStream._write = (chunk, encoding, next) => {
@@ -162,13 +161,13 @@ writableStream._write = (chunk, encoding, next) => {
 }
 ```
 
-You can now pipe a readable stream in:
+Agora você pode iniciar um stream legível em:
 
 `process.stdin.pipe(writableStream)`
 
-### <a name="get-data-from-readable-stream"></a> How to get data from a readable stream
+### <a name="get-data-from-readable-stream"></a> Como obter dados de um stream legível
 
-How do we read data from a readable stream? Using a writable stream:
+Como lemos dados de um stream legível? Usando um stream gravável:
 
 ```
 const Stream = require('stream')
@@ -187,7 +186,7 @@ readableStream.push('hi!')
 readableStream.push('ho!')
 ```
 
-You can also consume a readable stream directly, using the `readable` event:
+Você também pode consumir um stream legível diretamente, usando o evento `readable`:
 
 ```
 readableStream.on('readable', () => {
@@ -195,15 +194,15 @@ readableStream.on('readable', () => {
 }
 ```
 
-### <a name="send-data-to-writable-stream"></a> How to send data to a writable stream
+### <a name="send-data-to-writable-stream"></a> Como enviar dados para um stream gravável
 
-Using the stream `write()` method:
+Usando o método stream `write()`:
 
 `writableStream.write('hey!\n')`
 
-### <a name="signaling-writable-stream"></a> Signaling a writable stream that you ended writing
+### <a name="signaling-writable-stream"></a> Apontar para o stream grávavel que você escreveu
 
-Use the` end()` method:
+Use o método `end ()`:
 
 ```
 const Stream = require('stream')
@@ -219,33 +218,33 @@ writableStream._write = (chunk, encoding, next) => {
 readableStream.pipe(writableStream)
 ```
 
-### <a name="streams-conclusion"></a> Conclusion
+### <a name="streams-conclusion"></a> Conclusão
 
-This is an introduction to streams. There are much more complicated aspects to analyze, and Ihope to cover them soon.
+Esta é uma introdução aos streams. Há aspectos muito mais complicados para analisar e espero cobri-los em breve.
 
-## <a name="working-mysql"></a> Working with MySQL
+## <a name="working-mysql"></a> Trabalhando com MySQL
 
-**MySQL is one of the most popular relational databases in the world. Find outhow to make it work with Node.js**
+**O MySQL é um dos bancos de dados relacionais mais populares do mundo. Descubra como fazê-lo funcionar com o Node.js**
 
-MySQL is one of the most popular relational databases in the world.
+O MySQL é um dos bancos de dados relacionais mais populares do mundo.
 
-The Node ecosystem of course has several different packages that allow you to interface withMySQL, store data, retrieve data, and so on.
+É claro que o ecossistema do Node possui vários pacotes diferentes permitindo você interagir com o MySQL para  armazenar dados, recuperar dados e assim por diante.
 
-We'll use `mysqljs/mysql`, a package that has over 12.000 GitHub stars and has been around for years.
+Usaremos `mysqljs/mysql`, um pacote que existe há anos e tem mais de 12.000 estrelas no GitHub.
 
-### Installing the Node mysql package
+### Instalando o pacote mysql no Node
 
-You install it using
+Você instala usando npm
 
 `npm install mysql`
 
-### Initializing the connection to the database
+### Inicializando a conexão com o banco de dados
 
-You first include the package:
+Primeiramente, você inclui o pacote:
 
 `const mysql = require('mysql')`
 
-and you create a connection:
+e cria uma conexão:
 
 ```
 const options = {  
@@ -256,7 +255,7 @@ const options = {
 const connection = mysql.createConnection(options)
 ```
 
-You initiate a new connection by calling:
+Você inicia uma nova conexão chamando:
 
 ```
 connection.connect(err => {
@@ -267,9 +266,9 @@ connection.connect(err => {
 })
 ```
 
-### The connection options
+### As opções de conexão
 
-In the above example, the options object contained 3 options:
+No exemplo acima, o objeto options tinha 3 opções:
 
 ```
 const options = {  
@@ -279,18 +278,18 @@ const options = {
 }
 ```
 
-There are many more you can use, including:
+Existem muitas outras que você pode usar, incluindo:
 
-- `host`, the database hostname, defaults to `localhost`
-- `port`, the MySQL server port number, defaults to 3306
-- `socketPath`, used to specify a unix socket instead of host and port
-- `debug`, by default disabled, can be used for debugging
-- `trace`, by default enabled, prints stack traces when errors occur
-- `ssl`, used to setup an SSL connection to the server (out of the scope of this tutorial)
+- `host`, o nome do host do banco de dados, o padrão é `localhost`
+- `port`, o número da porta do servidor MySQL, o padrão é 3306
+- `socketPath`, usado para especificar um soquete unix, em vez de usar host e porta
+- `debug`, por padrão desabilitado, pode ser usado para depuração
+- `trace`, por padrão ativado, imprime rastreamentos de pilha quando ocorrem erros
+- `ssl`, usado para configurar uma conexão SSL com o servidor (fora do escopo deste tutorial)
 
-### Perform a SELECT query
+### Executar uma consulta SELECT
 
-Now you are ready to perform an SQL query on the database. The query once executed willinvoke a callback function which contains an eventual error, the results and the fields.
+Agora você está pronto para executar uma consulta SQL no banco de dados. A consulta executada invocará uma função callback que contém um eventual erro, os resultados e os campos.
 
 ```
 connection.query('SELECT * FROM todos', (error, todos, fields) => {
@@ -302,7 +301,7 @@ connection.query('SELECT * FROM todos', (error, todos, fields) => {
 })
 ```
 
-You can pass in values which will be automatically escaped:
+Você pode passar valores que serão retirados automaticamente:
 
 ```
 const id = 223
@@ -315,7 +314,7 @@ connection.query('SELECT * FROM todos WHERE id = ?', [id], (error, todos, fields
 })
 ```
 
-To pass multiple values, just put more elements in the array you pass as the secondparameter:
+Para passar vários valores, basta colocar mais elementos no array que você passa como o segundo parâmetro:
 
 ```
 const id = 223
@@ -328,9 +327,9 @@ connection.query('SELECT * FROM todos WHERE id = ? AND author = ?', [id, author]
 })
 ```
 
-### Perform an INSERT query
+### Executar uma consulta INSERT
 
-You can pass an object
+Você pode passar um objeto:
 
 ```
 const todo = {  
@@ -344,7 +343,7 @@ connection.query('INSERT INTO todos SET ?', todo, (error, results, fields) => {
 })
 ```
 
-If the table has a primary key with `auto_increment`, the value of that will be returned in t`heresults.insertId` value:
+Se a tabela tiver uma chave primária com `auto_increment`, o valor disso será retornado no valor de `results.insertId`:
 
 ```
 const todo = {  
@@ -361,42 +360,42 @@ connection.query('INSERT INTO todos SET ?', todo, (error, results, fields) => {
 )
 ```
 
-### Close the connection
+### Feche a conexão
 
-When you need to terminate the connection to the database you can call the `end()` method:
+Quando você precisar finalizar a conexão com o banco de dados, pode chamar o método `end()`:
 
 `connection.end()`
 
-This makes sure any pending query gets sent, and the connection is gracefully terminated.
+Isso garante que qualquer consulta pendente seja enviada e a conexão seja encerrada normalmente.
 
-## <a name="difference-development-production"></a> Difference between development and production
+## <a name="difference-development-production"></a> Diferença entre desenvolvimento e produção
 
-**Learn how to set up different configurations for production and developmentenvironments**
+**Aprenda a definir diferentes configurações para os ambientes de produção e desenvolvimento**
 
-You can have different configurations for production and development environments.
+Você pode ter configurações diferentes para ambientes de produção e desenvolvimento.
 
-Node assumes it's always running in a development environment. You can signal Node.js thatyou are running in production by setting the `NODE_ENV=production` environment variable.
+O Node assume que está sempre rodando em um ambiente de desenvolvimento. Você pode sinalizar ao Node.js que está executando a produção, definindo a variável de ambiente `NODE_ENV=production`.
 
-This is usually done by executing the command
+Isso geralmente é feito executando o comando:
 
 `export NODE_ENV=production`
 
-in the shell, but it's better to put it in your shell configuration file (e.g. `.bash_profile` with theBash shell) because otherwise the setting does not persist in case of a system restart.
+no shell, mas é melhor colocá-lo no seu arquivo de configuração do shell (por exemplo, `.bash_profile` com o shell bash) porque, caso o sistema seja reinicializado, a configuração não se manterá.
 
-You can also apply the environment variable by prepending it to your application initialization command:
+Você também pode aplicar a variável de ambiente anexando-a ao comando de inicialização do aplicativo:
 
 `NODE_ENV=production node app.js`
 
-This environment variable is a convention that is widely used in external libraries as well.
+Essa variável de ambiente também é uma convenção amplamente usada em bibliotecas externas.
 
-Setting the environment to `production` generally ensures that
+Definir o ambiente como `produção` geralmente garante que:
 
-- logging is kept to a minimum, essential level
-- more caching levels take place to optimize performance
+- o registro é mantido em um nível mínimo e essencial
+- mais níveis de cache ocorram, otimizando o desempenho
 
-For example Pug, the templating library used by Express, compiles in debug mode if `NODE_ENV` is not set to `production`. Express views are compiled in every request indevelopment mode, while in production they are cached. There are many more examples.
+Por exemplo, Pug, a biblioteca de modelos usada pelo Express, compila no modo de debug se `NODE_ENV` não estiver definido como` produção`. As visualizações do Express são compiladas em cada modo de desenvolvimento de requisição, enquanto na produção elas são armazenadas em cache. Há muitos mais exemplos.
 
-Express provides configuration hooks specific to the environment, which are automaticallycalled based on the NODE_ENV variable value:
+O Express fornece hooks de configuração específicos para o ambiente, que são chamados automaticamente com base no valor da variável NODE_ENV:
 
 ```
 app.configure('development', () => {
@@ -410,7 +409,7 @@ app.configure('production', 'staging', () => {
 })
 ```
 
-For example you can use this to set different error handlers for different mode:
+Por exemplo, você pode usar isso para definir diferentes manipuladores de erro para diferentes modos:
 
 ```
 app.configure('development', () => {  
