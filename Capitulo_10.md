@@ -14,11 +14,11 @@
 - [pipe()](#pipe)
 - [Streams mantidos por APIs do Node](#powered-node-apis)
 - [Diferente tipos de streams](#different-types)
-- [Como criar um stream legível](#readable-stream)
-- [Como criar um stream gravável](#writable-stream)
-- [Como obter dados de um stream legível](#get-data-from-readable-stream)
-- [Como enviar dados para um stream gravável](#send-data-to-writable-stream)
-- [Apontar para um stream grávavel que você escreveu](#signaling-writable-stream)
+- [Como criar um stream Readable](#readable-stream)
+- [Como criar um stream Writable](#writable-stream)
+- [Como obter dados de um stream Readable](#get-data-from-readable-stream)
+- [Como enviar dados para um stream Writable](#send-data-to-writable-stream)
+- [Apontar para um stream Writable que você escreveu](#signaling-writable-stream)
 - [Conclusão](#streams-conclusion)
 
 ### <a name="what-are-streams"></a> O que são streams
@@ -62,7 +62,7 @@ const server = http.createServer(function (req, res) {
 server.listen(3000)
 ```  
     
-`readFile()` lê todo o conteúdo do arquivo e chama a função callback terminar.
+`readFile()` lê todo o conteúdo do arquivo e chama a função callback quando estiver pronto.
 
 `res.end(data)` a função callback retornará o conteúdo do arquivo para o cliente HTTP.
 
@@ -89,7 +89,7 @@ O que faz este código? Ele pega o código fonte e o envia para um destino.
 
 Você o chama no código do stream. Nesse caso, o stream de arquivos é enviado para a resposta HTTP.
 
-O valor de retorno do método `pipe()` é o stream de destino, que é uma coisa muito conveniente e nos permite encadear várias chamadas `pipe ()`, assim:
+O valor de retorno do método `pipe()` é o stream de destino, que é uma coisa muito conveniente e nos permite encadear várias chamadas `pipe()`, assim:
 
 `src.pipe(dest1).pipe(dest2)`
 
@@ -107,10 +107,10 @@ Devido às suas vantagens, muitos módulos principais do Node.js fornecem recurs
 - `process.stdin` retorna um stream conectado ao stdin
 - `process.stdout` retorna um stream conectado ao stdout
 - `process.stderr` retorna um stream conectado ao stderr
-- `fs.createReadStream()` cria um stream legível para um arquivo
-- `fs.createWriteStream ()` cria um stream gravável em um arquivo
+- `fs.createReadStream()` cria um stream Readable para um arquivo
+- `fs.createWriteStream ()` cria um stream Writable em um arquivo
 - `net.connect ()` inicia uma conexão baseada em stream
-- `http.request ()` retorna uma instância do http. Classe ClientRequest, que é um stream gravável
+- `http.request ()` retorna uma instância do http.ClasseClientRequest, que é um stream Writable
 - `zlib.createGzip ()` compacta dados usando gzip (um algoritmo de compressão) em um stream
 - `zlib.createGunzip ()` descomprime um stream gzip.
 - `zlib.createDeflate ()` compacta dados usando deflate (um algoritmo de compressão) em um stream
@@ -120,12 +120,12 @@ Devido às suas vantagens, muitos módulos principais do Node.js fornecem recurs
 
 Existem quatro classes de streams:
 
-- Readable: um stream no qual você pode receber, mas não enviar dados. Quando você envia dados para um stream legível, ele é armazenado em buffer, até que o consumidor comece a ler os dados.
+- Readable: um stream no qual você pode receber, mas não enviar dados. Quando você envia dados para um stream Readable, ele é armazenado em buffer, até que o consumidor comece a ler os dados.
 - Writable: um stream no qual você pode enviar, mas não receber dados.
 - Duplex: um stream no qual você pode enviar e receber, basicamente uma combinação de um stream Readable e Writable.
 - Transform: um stream semelhante ao Duplex, mas a saída é uma transformação de sua entrada.
 
-### <a name="readable-stream"></a> Como criar um stream legível
+### <a name="readable-stream"></a> Como criar um stream Readable
 
 Nós obtemos um stream Readable a partir do módulo [`stream`](https://nodejs.org/api/stream.html) e nós o inicializamos:
 
@@ -141,9 +141,9 @@ readableStream.push('hi!')
 readableStream.push('ho!')
 ```
 
-### <a name="writable-stream"></a> Como criar um stream gravável
+### <a name="writable-stream"></a> Como criar um stream Writable
 
-Para criar um stream gravável, criamos o objeto base `Writable` e implementamos o método `its_write()`.
+Para criar um stream Writable, criamos o objeto base `Writable` e implementamos o método `its_write()`.
 
 Primeiro, crie um objeto stream:
 
@@ -161,13 +161,13 @@ writableStream._write = (chunk, encoding, next) => {
 }
 ```
 
-Agora você pode iniciar um stream legível em:
+Agora você pode iniciar um stream Readable em:
 
 `process.stdin.pipe(writableStream)`
 
-### <a name="get-data-from-readable-stream"></a> Como obter dados de um stream legível
+### <a name="get-data-from-readable-stream"></a> Como obter dados de um stream Readable
 
-Como lemos dados de um stream legível? Usando um stream gravável:
+Como lemos dados de um stream Readable? Usando um stream Writable:
 
 ```
 const Stream = require('stream')
@@ -186,7 +186,7 @@ readableStream.push('hi!')
 readableStream.push('ho!')
 ```
 
-Você também pode consumir um stream legível diretamente, usando o evento `readable`:
+Você também pode consumir um stream Readable diretamente, usando o evento `readable`:
 
 ```
 readableStream.on('readable', () => {
@@ -194,7 +194,7 @@ readableStream.on('readable', () => {
 }
 ```
 
-### <a name="send-data-to-writable-stream"></a> Como enviar dados para um stream gravável
+### <a name="send-data-to-writable-stream"></a> Como enviar dados para um stream Writable
 
 Usando o método stream `write()`:
 
@@ -202,7 +202,7 @@ Usando o método stream `write()`:
 
 ### <a name="signaling-writable-stream"></a> Apontar para o stream grávavel que você escreveu
 
-Use o método `end ()`:
+Use o método `end()`:
 
 ```
 const Stream = require('stream')
@@ -225,8 +225,6 @@ Esta é uma introdução aos streams. Há aspectos muito mais complicados para a
 ## <a name="working-mysql"></a> Trabalhando com MySQL
 
 **O MySQL é um dos bancos de dados relacionais mais populares do mundo. Descubra como fazê-lo funcionar com o Node.js**
-
-O MySQL é um dos bancos de dados relacionais mais populares do mundo.
 
 É claro que o ecossistema do Node possui vários pacotes diferentes permitindo você interagir com o MySQL para  armazenar dados, recuperar dados e assim por diante.
 
@@ -280,12 +278,12 @@ const options = {
 
 Existem muitas outras que você pode usar, incluindo:
 
-- `host`, o nome do host do banco de dados, o padrão é `localhost`
-- `port`, o número da porta do servidor MySQL, o padrão é 3306
-- `socketPath`, usado para especificar um soquete unix, em vez de usar host e porta
-- `debug`, por padrão desabilitado, pode ser usado para depuração
-- `trace`, por padrão ativado, imprime rastreamentos de pilha quando ocorrem erros
-- `ssl`, usado para configurar uma conexão SSL com o servidor (fora do escopo deste tutorial)
+- `host`: o nome padrão do host do banco de dados é `localhost`
+- `port`: o número padrão da porta do servidor MySQL é 3306
+- `socketPath`: em vez de usar host e porta, socketPath é usado para especificar um socket unix.
+- `debug`: por padrão desabilitado, pode ser usado para depuração
+- `trace`: por padrão ativado, imprime rastreamentos de pilha quando ocorrem erros
+- `ssl`: usado para configurar uma conexão SSL com o servidor (fora do escopo deste tutorial)
 
 ### Executar uma consulta SELECT
 
@@ -393,7 +391,9 @@ Definir o ambiente como `produção` geralmente garante que:
 - o registro é mantido em um nível mínimo e essencial
 - mais níveis de cache ocorram, otimizando o desempenho
 
-Por exemplo, Pug, a biblioteca de modelos usada pelo Express, compila no modo de debug se `NODE_ENV` não estiver definido como` produção`. As visualizações do Express são compiladas em cada modo de desenvolvimento de requisição, enquanto na produção elas são armazenadas em cache. Há muitos mais exemplos.
+Por exemplo, Pug, a biblioteca de modelos usada pelo Express, compila no modo de debug se `NODE_ENV` não estiver definido como` produção`. As visualizações do Express são compiladas em cada modo de desenvolvimento de requisição, enquanto na produção elas são armazenadas em cache. 
+
+Há muitos mais exemplos.
 
 O Express fornece hooks de configuração específicos para o ambiente, que são chamados automaticamente com base no valor da variável NODE_ENV:
 
