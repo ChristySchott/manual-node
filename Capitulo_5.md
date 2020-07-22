@@ -1,4 +1,6 @@
-<h1 align="center"> O Event Loop </h1>
+<h1 align="center">  TRABALHANDO COM O EVENT LOOP </h1>
+
+## O Event Loop
 
 ### O Loop de Eventos é um dos mais importantes conceitos para entender sobre JavaScript. Este post explica isso nos termos simples.
 
