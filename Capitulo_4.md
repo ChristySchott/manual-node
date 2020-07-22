@@ -1,7 +1,6 @@
 <h1 align="center"> Expor a funcionalidade de um arquivo Node usando imports </h1>
 
-### Como usar a API `module.exports` para expor dados a outros arquivos no seu
-aplicativo ou para outros aplicativos também
+### Como usar a API `module.exports` para expor dados a outros arquivos no seu aplicativo ou para outros aplicativos também
 
 O Node possui um sistema de módulos embutido.
 
