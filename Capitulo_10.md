@@ -1,4 +1,4 @@
-<h1 align="center"> Diversos </h1>
+<h1 align="center"> DIVERSOS </h1>
 
 - [Streams](#streams)
 - [Trabalhando com MySQL](#working-mysql)
