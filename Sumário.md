@@ -1,4 +1,4 @@
-<h1 align="center">Manual do React</h1>
+<h1 align="center">Manual do Node</h1>
 
 <h1 align="center"><img src="https://blog.4linux.com.br/wp-content/uploads/2019/12/node-js.png" /></h1>
 
