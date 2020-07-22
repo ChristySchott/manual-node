@@ -9,6 +9,19 @@ Vale a pena dizer que tive conhecimento da existência do livro durante um curso
 
 <h1 align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png" /></h1>
 
+### Conteúdos :books:
+
+1.  [Introdução](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_1.md)
+2. [Básico](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_2.md)
+3. [Linha de comando](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_3.md)
+4. [Node modules e npm](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_4.md)
+5. [Trabalhando com o Event Loop](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_5.md)
+6. [Programação Assíncrona](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_6.md)
+7. [Networking](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_7.md)
+8. [Fyle System](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_8.md)
+9. [Alguns módulos essenciais](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_9.md)
+10. [Diversos](https://github.com/ChristySchott/manual-node/blob/master/Capitulo_10.md)
+
 
 A corrente tradução é autorizada pelo autor Flavio Copes e iniciada por Christy Hauschild Schott e Vinicius Dias (confira o GitHub dele [aqui](https://github.com/ViniciusmDias)). A tradução é feita em caráter voluntário e tem como único objetivo disponibilizar à comunidade o conteúdo do livro em português.
 
