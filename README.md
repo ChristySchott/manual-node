@@ -2,8 +2,6 @@
 
 <h3 align="center"> 👨‍💻 Desenvolvido em parceria com o <a href="https://github.com/ViniciusmDias">Vinicius Dias</a> 👨‍💻 </h4>
 
-<h4 align="center"> :warning: Em tradução :warning: </h4>
-
 Vale a pena dizer que tive conhecimento da existência do livro durante um curso na plataforma da [freeCodeCamp](https://www.freecodecamp.org/learn/). Os cursos são em inglês, mas são realmente muito completos e no final você ainda ganha um certificação. Durante o início da tradução fui chamado pelo Vinicius Dias, que se disponibilizou a ajudar no projeto, tudo isso visando agregar conteúdo de qualidade a comunidade.
 
 
