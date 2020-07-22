@@ -1,4 +1,6 @@
-<h1 align="center"> Usando o Node REPL </h1>
+<h1 align="center"> LINHA DE COMANDO </h1>
+
+## Usando o Node REPL
 
 ### REPL significa Read-Evaluate-Print-Loop, e é uma ótima maneira de explorar os recursos do Node de maneira rápida
 
