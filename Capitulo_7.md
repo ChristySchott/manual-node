@@ -1,4 +1,6 @@
-<h1 align="center"> HTTP </h1>
+<h1 align="center"> NETWORKING </h1>
+
+## HTTP
 
 - [HTTP](#http)
 - [Como as requisições HTTP funcionam](#http-requests)
