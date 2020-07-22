@@ -29,7 +29,7 @@
 - Saídas para a linha de comando
 - Aceitando entradas da linha de comando
 
-<strong>SEÇÃO 4:</strong> Node modules e npm
+<strong>SEÇÃO 4:</strong> NODE MODULES E NPM
 
 - Expor a funcionalidade de um arquivo Node usando imports
 - npm
