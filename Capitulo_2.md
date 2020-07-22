@@ -1,6 +1,8 @@
-<h1 align="center"> Rodando scripts do Node da linha de comando </h1>
+<h1 align="center"> BÁSICO  </h1>
 
-## Como rodar qualquer comando do Node na CLI
+## Rodando scripts do Node da linha de comando
+
+### Como rodar qualquer comando do Node na CLI
 
 A maneira usual de executar um programa Node é chamar comando global `node` (que fica disponível quando
 você instala o Node) e passar o nome do arquivo que deseja executar.
